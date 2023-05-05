@@ -5,7 +5,7 @@
 function fib1(n) {
   let a = 1
   let b = 1
-  let temp = 0
+  let temp
   if (n < 3) return 1
   for (let i = 3; i <= n; i++) {
     temp = a + b
