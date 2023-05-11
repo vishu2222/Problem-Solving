@@ -1,28 +1,27 @@
-var lengthOfLongestSubstring = function (s) {
-  let max = 0;
+function longestSubStr(str) {
+  let maxLength = 0
+  let windowStart = 0
+  let windowEnd = 0
+  const currentSubStringChars = {}
 
-  for (let pos = 0; pos < s.length; pos++) {
-    let minSubString = [];
-    for (let i = pos; i < s.length; i++) {
-      if (!minSubString.includes(s[i])) {
-        minSubString.push(s[i]);
-        // console.log("minSubString", minSubString);
-        if (i === s.length - 1) {
-          if (max < minSubString.length) max = minSubString.length;
-          //   console.log("max=", max);
-          minSubString = [];
-          break;
-        }
-      } else {
-        if (max < minSubString.length) max = minSubString.length;
-        // console.log("max=", max);
-        minSubString = [];
-        break;
-      }
+  // abcde
+  while (windowEnd !== str.length) {
+    const currentChar = str[windowEnd]
+
+    if (currentSubStringChars[currentChar] === undefined) {
+      currentSubStringChars[currentChar] = true
+      windowEnd++
+      const windowSize = windowEnd - windowStart
+      maxLength = Math.max(maxLength, windowSize)
+    } else {
+      let startChar = str[windowStart]
+      delete currentSubStringChars[startChar]
+      windowStart++
     }
   }
-  return max;
-};
 
-let s = "abcdabcabcdef";
-console.log(lengthOfLongestSubstring(s));
+  return maxLength
+}
+
+const str = "abcdbef"
+console.log(longestSubStr(str))
